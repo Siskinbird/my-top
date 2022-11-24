@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../components/Button/Button';
-import {Htag} from "../components/Htag/Htag";
-import { P } from '../components/P/P';
-import { Tag } from '../components/Tag/Tag';
-// import { Button, Htag, P, Tag } from '../components';
+import {Button, Htag, Rating, P, Tag } from '../components';
 
 export default function Home() {
   return (
@@ -18,6 +14,7 @@ export default function Home() {
       <Tag size='m' color='red'>Red</Tag>
       <Tag size='s' color='green'>Green</Tag>
       <Tag color='primary'>Green</Tag>
+        <Rating rating={5}/>
     </>
   )
 }
