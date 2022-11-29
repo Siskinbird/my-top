@@ -33,7 +33,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths,
         fallback: true
     }
-
 }
 
 export const getStaticProps: GetStaticProps<CourseProps> = async ({params}: GetStaticPropsContext<ParsedUrlQuery>) => {
