@@ -8,9 +8,15 @@ import {Button} from "../Button/Button";
 import {declOfNumber, priceRu} from "../../helpers/helpers";
 import {Divider} from "../Divider/Divider";
 import Image from "next/image";
+import {useState} from "react";
+import {Review} from "../Review/Review";
+import {ReviewForm} from "../ReviewForm/ReviewForm";
 
 export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
+    const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false)
+
     return (
+        <>
         <Card className={styles.product}>
             <div className={styles.logo}>
                 <Image src={process.env.NEXT_PUBLIC_DOMAIN + product.image}
@@ -60,8 +66,25 @@ export const Product = ({product, className, ...props}: ProductProps): JSX.Eleme
             </div>
             <div className={styles.actions}>
                 <Button appearance='primary'>Узнать подробнее</Button>
-                <Button appearance='ghost' arrow='right' className={styles.reviewButton}>Читать отзывы</Button>
+                <Button
+                    onClick={ () => setIsReviewOpen(!isReviewOpen)}
+                    appearance='ghost'
+                    arrow={isReviewOpen ? 'down' : 'right'}
+                    className={styles.reviewButton}>Читать отзывы</Button>
             </div>
         </Card>
+        <Card color="blue" className={cn(styles.reviews, {
+            [styles.opened]: isReviewOpen,
+            [styles.closed]: !isReviewOpen,
+        })}>
+            {product.reviews.map(r => (
+                <>
+                    <Review key={r._id} review={r}/>
+                    <Divider/>
+                </>
+            ))}
+            <ReviewForm productId={product._id}/>
+        </Card>
+        </>
     );
 };
